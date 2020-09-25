@@ -24,3 +24,23 @@ source env/bin/activate
 ```
 pip install -r requirements.txt
 ```
+
+### Inicializar la base de datos
+```
+cd source
+./manage.py migrate
+```
+
+### Para correr la app:
+```
+./manage.py runserver
+```
+abrir el navegador en localhost:8000/
+
+### Admin
+crear un usuario superuser
+```
+./manage.py createsuperuser
+```
+abrir el navegador en localhost:8000/admin
+
