@@ -16,6 +16,9 @@ class Profile(models.Model):
     def age(self):
         return 10  # FIXME
 
+    def get_nickname(self):
+        return self.nickname or self.first_name
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)

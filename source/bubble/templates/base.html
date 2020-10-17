@@ -29,50 +29,56 @@
     {% endblock %}
 </head>
 <body>
-    {% block title %}
-    <header class="header col-md-12" >
-        <div class="espacio col-md-4"></div>
-        <img class="logo col-md-4" src="{% static "imagenes/logo.jpeg" %}">
-        <div class="espacio col-md-4"></div>
-    </header>
-    {% endblock %}
-
-    <main class="col-md-12">
-
     {% block navbar %}
+    {% if user.profile %}
+        <header class="header col-md-12" >
+            <div class="espacio col-md-4"></div>
+            <img class="logo col-md-4" src="{% static "imagenes/logo.jpeg" %}">
+            <div class="espacio col-md-4"></div>
+        </header>
 
-    <nav  class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/home">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/estudios">Mis Estudios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/vacunas">Mis Vacunas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/estudios/alta">Subir Estudios</a>
-                </li>
-            </ul>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ¡HOLA NICK! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/perfil">Ver Perfil</a>
-                    <a class="dropdown-item" href="/grupo">Mi Grupo</a>
-                    <hr/>
-                    <a class="dropdown-item" href="/logout">Cerrar Sesión</a>
+        <main class="col-md-12">
+
+        <nav  class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/estudios">Mis Estudios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/vacunas">Mis Vacunas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/estudios/alta">Subir Estudios</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ¡HOLA {{ profile.get_nickname }}! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/perfil">Ver Perfil</a>
+                        <a class="dropdown-item" href="/grupo">Mi Grupo</a>
+                        <hr/>
+                        <a class="dropdown-item" href="/logout">Cerrar Sesión</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    {% else %}
+        <header class="header col-md-12" >
+            <img class="logo col-md-4" src="{% static "imagenes/logo.jpeg" %}">
+            <a href="/login"><div class="botonHeader col-md-2"><i class="fas fa-sign-in-alt"></i> MI BUBBLE MED</div></a>
+            <a href="/registro"><div class="botonHeader col-md-2"><i class="far fa-edit"></i> REGISTRARSE</div> </a>
+        </header>
+        <main class="col-md-12">
+    {% endif %}
 
     {% endblock %}
     <hr class="separador" style="margin-top: 0;"/>
