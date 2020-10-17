@@ -1,7 +1,31 @@
-<html>
-    <body>
-        <h1>Wellcome to Bubble Med!</h1>
-        <p>Seminario profesional 1</p>
-        <p>Grupo 3</p>
-    </body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container col-md-12">
+        <div class="espacio col-md-2"></div>
+        <a href="/estudios">
+            <div class="botonHome col-md-3">
+                <i class="far fa-eye"></i><br/>
+                ESTUDIOS
+            </div>
+        </a>
+        <div class="espacio col-md-2"></div>
+
+        <a href="/vacunas">
+            <div class="botonHome col-md-3">
+                <i class="fas fa-syringe"></i><br/>
+                VACUNAS
+            </div>
+        </a>
+        <div class="espacio col-md-2"></div>
+        <div class="espacio col-md-4"></div>
+        <a href="/grupo">
+            <div class="botonHome col-md-4">
+                <i class="fas fa-users"></i><br/>
+                MI GRUPO
+            </div>
+        </a>
+        <div class="espacio col-md-4"></div>
+    </div>
+{% endblock %}
