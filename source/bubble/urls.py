@@ -12,12 +12,11 @@ urlpatterns = [
     path('estudios/alta', views.document_create, name='document-create'),
     path('estudios/<int:pk>', views.document_view, name='document-view'),
 
-    path('vacunas', views.vaccine_create, name='vaccine-list'),
+    path('vacunas', views.vaccine_list, name='vaccine-list'),
     path('vacunas/alta', views.vaccine_create, name='vaccine-create'),
     path('vacunas/<int:pk>', views.vaccine_view, name='vaccine-view'),
 
     path('grupo', views.group_list, name='group-list'),
     path('grupo/alta', views.group_create, name='group-create'),
     path('grupo/<int:pk>', views.group_view, name='group-view'),
-
 ]

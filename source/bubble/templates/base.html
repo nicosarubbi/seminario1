@@ -25,12 +25,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static "css/estilos.css" %}">
     <link rel="icon" type="imagenes/vnd.microsoft.icon" href="{% static "imagenes/favicon.ico" %}">
-    {% block head %}
-    {% endblock %}
+    {% block head %} {% endblock %}
 </head>
 <body>
     {% block navbar %}
-    {% if user.profile %}
+    {% if profile %}
         <header class="header col-md-12" >
             <div class="espacio col-md-4"></div>
             <img class="logo col-md-4" src="{% static "imagenes/logo.jpeg" %}">
@@ -45,16 +44,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
+                    <li class="nav-item {% if active_group == "home" %}active{% endif %}">
                         <a class="nav-link" href="/home">Home </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if active_page == "document_list" %}active{% endif %}">
                         <a class="nav-link" href="/estudios">Mis Estudios</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if active_group == "vaccine" %}active{% endif %}">
                         <a class="nav-link" href="/vacunas">Mis Vacunas</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if active_page == "document_create" %}active{% endif %}">
                         <a class="nav-link" href="/estudios/alta">Subir Estudios</a>
                     </li>
                 </ul>
@@ -63,7 +62,7 @@
                         ¡HOLA {{ profile.get_nickname }}! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/perfil">Ver Perfil</a>
+                        <a class="dropdown-item" href="/profile">Ver Perfil</a>
                         <a class="dropdown-item" href="/grupo">Mi Grupo</a>
                         <hr/>
                         <a class="dropdown-item" href="/logout">Cerrar Sesión</a>
@@ -83,13 +82,15 @@
     {% endblock %}
     <hr class="separador" style="margin-top: 0;"/>
 
-    {% block body %}
-    {% endblock %}
+    {% block body %} {% endblock %}
     </main>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static "js/bootstrap.min.js" %}"/>
     <script src="{% static "js/tm-scripts.js" %}"/>
+
+    {% block footer %}
+    {% endblock %}
 </body>
 </html>

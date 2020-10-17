@@ -4,7 +4,7 @@ from utils.fields import OneToOneField
 
 class Profile(models.Model):
     user = OneToOneField('auth.User', related_name='profile', on_delete=models.CASCADE)
-    parent = models.ForeignKey('Profile', related_name='childs', on_delete=models.CASCADE)
+    parent = models.ForeignKey('Profile', related_name='childs', on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
