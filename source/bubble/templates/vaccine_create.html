@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+
+   <div class="container col-md-12">
+
+          <div class="contenedorFormularioSubir col-md-12">
+          <h3 class="col-md-6">SUBÍ LA VACUNA</h3><br>
+
+          <div class="col-md-12">
+
+           <form action="">
+            <div class="col-md-6" style="float: left;">
+           <input class="inputSubir" type="text" id="nombre" name="nombre" placeholder="NOMBRE DE LA VACUNA" required><br>
+           <input class="dateEstudioSubir" id="fecha" name="fecha" type="text" class="form-control" placeholder="FECHA" onfocus="(this.type='date')"/ required><br>
+
+        <input class="inputSubir" type="text" id="lugar" name="lugar" placeholder="ESTABLECIMIENTO" required><br>
+        <input class="inputSubir" type="text" id="profesional" name="profesional" placeholder="PROFESIONAL" required><br>
+
+</div>
+           <div class="col-md-6" style="float: left;">
+        <input style="width: 300px;" id="file-1" type="file" multiple class="file" data-overwrite-initial="false">
+
+      </div>
+
+      <div class="col-md-12" style="float: left;">
+        <input class="botonFormularioSubir" data-dismiss="modal" type="submit" value="SUBIR">
+      </div>
+        </form>
+
+        </div>
+
+        </div>
+
+        </div>
+
+</main>
+{% endblock %}

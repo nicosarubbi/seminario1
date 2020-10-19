@@ -1,0 +1,429 @@
+.header{
+	float: left;
+}
+
+.logo{
+	float:left;
+}
+
+.botonHeader{
+	float: right;
+	font-family: 'Lato', sans-serif;
+	color: #0C4B8F;
+	border-style: solid;
+  margin: 45px 10px 10px 10px;
+  text-align: center;
+  border-color: #8492A6;
+  border-radius: 25px;
+  padding: 7px;
+}
+
+.botonHeader:hover{
+  opacity: 0.5;
+}
+
+.separador{
+	float: left;
+	border-color: #0C4B8F;
+    border-width: thick;
+    width: 100%;
+}
+
+.container{
+	float: left;
+	min-height: 600px;
+	background-image: url("molecula.jpg");
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+.espacio{
+	float: left;
+	height: 1px;
+}
+
+.contenedorTextoLanding{
+	float: left;
+    font-family: 'Lato', sans-serif;
+    background-color: #969faa52;
+    color: #0C4B8F;
+    font-size: xx-large;
+    margin-top: 200px;
+    text-align: center;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.textoRegistro{
+	float: left;
+	text-align: justify;
+    font-family: 'Lato', sans-serif;
+    color: #0C4B8F;
+    font-size: larger;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.formulario{
+	  float: right;
+    font-family: 'Lato', sans-serif;
+    background-color: #969faa52;
+    color: #0C4B8F;
+    font-size: xx-large;
+    margin-top: 20px;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.formulario form{
+	font-size: 23px;
+}
+
+.formulario form input{
+	border-radius: 30px;
+    border-style: none;
+    padding: 5px 5px 5px 20px;
+    font-size: large;
+    width: 400px;
+    margin: 10px;
+}
+
+.formulario form label{
+	font-size: smaller;
+}
+
+.check{
+	height: 16px;
+    width: 16px!important;
+}
+
+.botonFormulario{
+	width: 200px!important;
+    padding-left: 5px!important;
+    background-color: #0C4B8F;
+    color: white;
+}
+
+.botonFormulario:hover{
+	opacity: 0.5;
+}
+
+.linkForm{
+	color: #0C4B8F;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: large;
+}
+
+.navbar{
+	background-color: white!important;
+	padding-left: 0!important;
+    padding-bottom: 0!important;
+}
+
+.nav-item{
+	width: 150px;
+    text-align: center;
+    height: 45px;
+}
+
+.nav-item:hover{
+background-color: #E5E9F2;
+}
+
+.active{
+background-color: #E5E9F2!important;
+color: rgba(0,0,0,.5)!important;
+}
+
+.btn{
+	background-color: white!important;
+	color: #47525E!important;
+	border-style: none!important;
+}
+
+.btn:hover{
+	opacity: 0.5;
+}
+
+.dropdown-menu{
+width: 180px;
+}
+
+.botonHome{
+	float: left;
+    font-family: 'Lato', sans-serif;
+    background-color: #969faa52;
+    color: #0C4B8F;
+    font-size: xx-large;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.botonHome i{
+	font-size: 60px;
+}
+
+.botonHome:hover{
+	opacity: 0.5;
+}
+
+.calendarioVacunacion{
+	width: 100%;
+}
+
+.input-group{
+    width: 240px!important;
+}
+
+.panelEstudios{
+	float: left;
+}
+
+.buscarEstudios{
+	float: right;
+	margin-bottom: 10px;
+}
+
+.estudios{
+	float: left;
+}
+
+.botonSubirEstudio{
+	float: left;
+	background-color: #514c4c!important;
+    color: white!important;
+    margin-bottom: 10px;
+}
+
+.botonSubirEstudio:hover{
+	opacity: 0.5;
+}
+
+.botonFiltros{
+	float: right;
+	background-color: #514c4c!important;
+    color: white!important;
+    margin-bottom: 10px;
+}
+
+.botonSubirFiltros:hover{
+	opacity: 0.5;
+}
+
+.card-link {
+	color: #444343!important;
+}
+
+.card-link:hover {
+	opacity: 0.7;
+}
+
+.iconCard{
+	float: right;
+}
+
+.card{
+	background-color: transparent!important;
+}
+
+.card-header{
+	background-color: rgb(158 158 158 / 31%);
+}
+
+.card-body{
+	background-color: rgb(158 158 158 / 11%);
+	height: 70px;
+}
+
+.texto-card-body{
+	float: left;
+	text-align: center;
+}
+
+.modal-header{
+	text-align: center;
+	display: block;
+}
+
+.modal-title{
+	margin-left: 30px;
+}
+
+.modal-content{
+	border-radius: 25px;
+
+}
+
+.selectEstudio{
+	width: 300px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+}
+
+.dateEstudio{
+	width: 200px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+}
+
+.botonFormularioModal{
+	display: block;
+    margin: 0 auto;
+	background-color: #514c4c!important;
+    color: white!important;
+    margin-bottom: 10px;
+}
+
+.botonFormularioModal:hover{
+    opacity: 0.5;
+}
+
+.inputModal{
+
+	width: 300px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+}
+
+.contenedorVisualizacionEstudio{
+	float: left;
+    font-family: 'Lato', sans-serif;
+    background-color: #969faa52;
+    color: #0C4B8F;
+    font-size: xx-large;
+    margin-top: 20px;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    min-height: 400px;
+}
+
+.contenidoVisualizacionEstudio{
+	float: left;
+    font-family: 'Lato', sans-serif;
+    background-color: #969faa52;
+    color: #47525E;
+    font-size: x-large;
+    margin-top: 20px;
+    text-align: left;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 19px;
+}
+
+.contenidoVisualizacionArchivo{
+	float: left;
+    font-family: 'Lato', sans-serif;
+    color: #47525E;
+    font-size: x-large;
+    margin-top: 20px;
+    text-align: left;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 19px;
+}
+
+.archivo{
+	background-color: white;
+}
+
+.archivo:hover{
+	opacity: 0.5;
+}
+
+.iconoArchivo{
+	float: right;
+    margin-top: 5px;
+}
+
+.descargarArchivo{
+	color: #47525E;
+}
+
+.descargarArchivo:hover{
+	color: #47525E;
+}
+
+.inputSubir{
+    width: 300px;
+    height: 40px;
+    display: block;
+}
+
+.dateEstudioSubir{
+    width: 300px;
+    height: 40px;
+    display: block;
+}
+
+.selectSubirEstudio{
+    width: 300px;
+    height: 40px;
+    display: block;
+}
+
+.contenedorFormularioSubir{
+    float: left;
+    font-family: 'Lato', sans-serif;
+    background-color: #969faa52;
+    color: #0C4B8F;
+    margin-top: 20px;
+
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    min-height: 400px;
+}
+
+.contenedorFormularioSubir h3{
+    text-align: left;
+}
+
+.botonFormularioSubir{
+    display: block;
+    background-color: #514c4c!important;
+    color: white!important;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 350px;
+}
+
+.fileinput-remove,
+.fileinput-upload{
+    display: none;
+}
+
+.file-drop-zone-title{
+    color: darkgrey;
+}
+
+.file-preview{
+    border-style: none;
+    background-color: #a9a9a93b;
+}
+
+.input-group{
+    width: 235px!important;
+}
+
+.botonFormularioSubir:hover{
+    opacity: 0.5;
+}
+
+.help-block{
+  margin-top: 0px;
+  font-family: 'Lato', 'Sans-Serif';
+	color: crimson;
+  font-size: smaller;
+}

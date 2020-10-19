@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+        <div class="container col-md-12">
+<div class="col-md-12 panelEstudios">
+
+<a href="/vacunas/alta"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ SUBIR VACUNAS</button></a>
+<a href="calendarioDeVacunacion.html"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio">VER CALENDARIO OFICIAL</button></a>
+
+<button type="button" class="col-md-2 btn btn-secondary botonFiltros" data-toggle="modal" data-target="#myModal">FILTROS</button>
+
+<div class="col-md-7 input-group buscarEstudios">
+  <input type="text" class="form-control" placeholder="BUSCAR" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
+  </div>
+</div>
+
+
+
+</div>
+          <div id="accordion">
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          HEPATITIS A
+        </a>
+
+
+
+         <a class="card-link iconCard"  href="#">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+
+
+        <a class="card-link iconCard"  href="#">
+          <i class="fas fa-download"></i>
+        </a>
+         <a class="card-link iconCard"  href="#">
+          <i class="fas fa-share-alt"></i>
+        </a>
+        <a class="card-link iconCard"  href="/vacuna/1">
+          <i class="far fa-eye"></i>
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+          <span class="col-md-6 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> 11/10/2020</span>
+          <span class="col-md-6 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> LUGAR:</b> STAMBOULIAN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+
+</main>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">FILTROS</h4>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="">
+
+    <input class="inputModal" type="text" id="nombre" name="nombre" placeholder="NOMBRE"><br>
+
+<input class="dateEstudio" id="desde" name="desde" type="text" class="form-control" placeholder="DESDE" onfocus="(this.type='date')"/><br>
+<input class="dateEstudio" id="hasta" name="hasta" type="text" class="form-control" placeholder="HASTA" onfocus="(this.type='date')"/><br>
+
+
+        <input class="inputModal" type="text" id="lugar" name="lugar" placeholder="LUGAR"><br>
+        <input class="inputModal" type="text" id="profesional" name="profesional" placeholder="PROFESIONAL"><br>
+
+        <input class="botonFormularioModal" data-dismiss="modal" type="submit" value="BUSCAR">
+        </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

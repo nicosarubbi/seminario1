@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="container col-md-12">
+  <div class="col-md-12 panelEstudios">
+    <a href="/estudios/alta"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio">+ SUBIR UN ESTUDIO</button></a>
+    <button type="button" class="col-md-2 btn btn-secondary botonFiltros" data-toggle="modal" data-target="#myModal">FILTROS</button>
+    <div class="col-md-7 input-group buscarEstudios">
+      <input type="text" class="form-control" placeholder="BUSCAR" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
+      </div>
+    </div>
+  </div>
+  {% for document in documents %}
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" href="#collapse{{document.id}}">{{document.name}}</a>
+          <a class="card-link iconCard" href="/estudios/{{document.id}}/delete"><i class="fas fa-trash-alt"></i></a>
+          <a class="card-link iconCard" href="#"><i class="fas fa-share-alt"></i></a>
+          <a class="card-link iconCard" href="/estudios/{{document.id}}"><i class="far fa-eye"></i></a>
+        </div>
+        <div id="collapse{{document.id}}" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i>FECHA:</b>{{document.date}}</span>
+            <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> TIPO:</b> {{document.category}}</span>
+            <span class="col-md-4 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> LUGAR:</b> {{document.entity|default:"-"}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+ </div>
+
+</main>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">FILTROS</h4>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="">
+    <input class="inputModal" type="text" id="nombre" name="nombre" placeholder="NOMBRE"><br>
+        <select class ="selectEstudio" id="tipo" name="tipo">
+  <option disabled selected>TIPO DE ESTUDIO</option>
+  <option value="volvo">Laboratorio</option>
+  <option value="saab">Imagen</option>
+  <option value="saab">Radiológico</option>
+  <option value="audi">Otro</option>
+</select><br>
+
+<input class="dateEstudio" id="desde" name="desde" type="text" class="form-control" placeholder="DESDE" onfocus="(this.type='date')"/><br>
+<input class="dateEstudio" id="hasta" name="hasta" type="text" class="form-control" placeholder="HASTA" onfocus="(this.type='date')"/><br>
+
+
+        <input class="inputModal" type="text" id="lugar" name="lugar" placeholder="LUGAR"><br>
+        <input class="inputModal" type="text" id="profesional" name="profesional" placeholder="PROFESIONAL"><br>
+
+        <input class="botonFormularioModal" data-dismiss="modal" type="submit" value="BUSCAR">
+        </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
