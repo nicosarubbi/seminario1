@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from utils.fields import OneToOneField
 
@@ -19,10 +20,21 @@ class Profile(models.Model):
     def get_nickname(self):
         return self.nickname or self.first_name
 
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def __str__(self):
+        return self.full_name
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
     color = models.CharField(max_length=10, blank=True, default='')
+    # order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 
 class Document(models.Model):
@@ -30,6 +42,7 @@ class Document(models.Model):
     category = models.ForeignKey('Category', related_name='documents',
                                  on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(default=datetime.date.today)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, blank=True, default='')
     tags = models.TextField(blank=True, default='')
@@ -37,15 +50,22 @@ class Document(models.Model):
     professional = models.TextField(blank=True, default='')
     public_link = models.TextField(blank=True, default='')
 
+    def __str__(self):
+        return self.name
+
 
 class File(models.Model):
-    document = models.ForeignKey('Document', related_name='files', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    document = models.ForeignKey('Document', related_name='files', on_delete=models.CASCADE,
+                                 null=True, blank=True)
     name = models.CharField(max_length=50)
     file = models.FileField(null=True, blank=True)
     ftype = models.CharField(max_length=6, blank=True, default=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Observation(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
-

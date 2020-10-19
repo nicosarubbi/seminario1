@@ -3,54 +3,36 @@
 
 {% block body %}
 
-        <div class="container col-md-12">
-<div class="col-md-12 panelEstudios">
-
-<a href="/estudios/alta"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio">+ SUBIR UN ESTUDIO</button></a>
-
-<button type="button" class="col-md-2 btn btn-secondary botonFiltros" data-toggle="modal" data-target="#myModal">FILTROS</button>
-
-<div class="col-md-7 input-group buscarEstudios">
-  <input type="text" class="form-control" placeholder="BUSCAR" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <div class="input-group-append">
-    <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
-  </div>
-</div>
-
-
-
-</div>
-          <div id="accordion">
-    <div class="card">
-      <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#collapseOne">
-          LABORATORIO CENTRALAB
-        </a>
-
-
-
-         <a class="card-link iconCard"  href="#">
-          <i class="fas fa-trash-alt"></i>
-        </a>
-
-
-        <a class="card-link iconCard"  href="#">
-          <i class="fas fa-download"></i>
-        </a>
-         <a class="card-link iconCard"  href="#">
-          <i class="fas fa-share-alt"></i>
-        </a>
-        <a class="card-link iconCard"  href="/estudios/1">
-          <i class="far fa-eye"></i>
-        </a>
-      </div>
-      <div id="collapseOne" class="collapse" data-parent="#accordion">
-        <div class="card-body">
-          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> 11/10/2020</span>  <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> TIPO:</b> LABORATORIO</span> <span class="col-md-4 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> LUGAR:</b> CENTRALAB</span>
-        </div>
+<div class="container col-md-12">
+  <div class="col-md-12 panelEstudios">
+    <a href="/estudios/alta"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio">+ SUBIR UN ESTUDIO</button></a>
+    <button type="button" class="col-md-2 btn btn-secondary botonFiltros" data-toggle="modal" data-target="#myModal">FILTROS</button>
+    <div class="col-md-7 input-group buscarEstudios">
+      <input type="text" class="form-control" placeholder="BUSCAR" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
       </div>
     </div>
   </div>
+  {% for document in documents %}
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" href="#collapse{{document.id}}">{{document.name}}</a>
+          <a class="card-link iconCard" href="/estudios/{{document.id}}/delete"><i class="fas fa-trash-alt"></i></a>
+          <a class="card-link iconCard" href="#"><i class="fas fa-share-alt"></i></a>
+          <a class="card-link iconCard" href="/estudios/{{document.id}}"><i class="far fa-eye"></i></a>
+        </div>
+        <div id="collapse{{document.id}}" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i>FECHA:</b>{{document.date}}</span>
+            <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> TIPO:</b> {{document.category}}</span>
+            <span class="col-md-4 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> LUGAR:</b> {{document.entity|default:"-"}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
  </div>
 
 </main>
