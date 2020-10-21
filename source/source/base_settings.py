@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['', 'localhost', 'nicosarubbi.pythonanywhere.com']
 
+LOGIN_URL = "/login"
 
 # Application definition
 

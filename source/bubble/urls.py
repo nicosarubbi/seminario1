@@ -4,8 +4,8 @@ from bubble import views
 urlpatterns = [
     path('', views.landing, name='landing'),
     path('home', views.home, name='home'),
-    path('login', views.login, name='login'),
-    path('logout', views.logout, name='logout'),
+    path('login', views.login_view, name='login'),
+    path('logout', views.logout_view, name='logout'),
     path('profile', views.profile, name='profile'),
 
     path('estudios', views.document_list, name='document-list'),

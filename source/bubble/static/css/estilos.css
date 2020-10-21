@@ -85,8 +85,6 @@
     border-style: none;
     padding: 5px 5px 5px 20px;
     font-size: large;
-    width: 400px;
-    margin: 10px;
 }
 
 .formulario form label{
@@ -113,7 +111,7 @@
 	color: #0C4B8F;
     text-decoration: none;
     background-color: transparent;
-    font-size: large;
+    font-size: medium;
 }
 
 .navbar{
