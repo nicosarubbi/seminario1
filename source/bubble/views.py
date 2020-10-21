@@ -49,6 +49,7 @@ def document_ok(request):
     if form.is_valid():
         file = form.cleaned_data['file']
         models.File.objects.create(
+            profile=request.user.profile,
             file=file,
             name=file.name,
         )
@@ -66,6 +67,7 @@ def document_add(request):
     if form.is_valid():
         file = form.cleaned_data['file']
         models.File.objects.create(
+            profile=request.user.profile,
             file=file,
             name=file.name,
         )
@@ -93,15 +95,6 @@ def document_create(request):
             document_remove(request, submit_name.replace('remove-', ''))
         return document_continue(request, forms.DocumentForm(request.POST))
     return document_continue(request)
-
-def document_file(request):
-    form = forms.FileForm(request.POST, request.FILES)
-    print(request.method, request.POST)
-    if form.is_valid():
-        data = form.cleaned_data
-        models.File.objects.create(**cleaned_data)
-        return HttpResponse('')
-    return HttpResponse('error')
 
 def document_view(request, pk):
     doc = models.Document.objects.get(pk=pk)
