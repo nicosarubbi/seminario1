@@ -56,11 +56,11 @@ class Document(models.Model):
 
 class File(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    document = models.ForeignKey('Document', related_name='files', on_delete=models.CASCADE,
-                                 null=True, blank=True)
+    document = models.ForeignKey('Document', related_name='files',
+        on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50)
     file = models.FileField(null=True, blank=True)
-    ftype = models.CharField(max_length=6, blank=True, default=True)
+    profile = models.ForeignKey('Profile', related_name='files', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
