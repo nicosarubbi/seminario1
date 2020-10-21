@@ -5,16 +5,19 @@ from utils.fields import DateField
 from django.core.exceptions import ValidationError
 
 class DocumentForm(forms.Form):
-    name = forms.CharField(label="Nombre del estudio")
-    date = DateField(label='Fecha', initial=datetime.date.today)
-    category = forms.ModelChoiceField(label="Tipo de Estudio", queryset=models.Category.objects.all())
+    name = forms.CharField(label="Nombre del estudio", required=False)
+    date = DateField(label='Fecha', initial=datetime.date.today, required=False)
+    category = forms.ModelChoiceField(label="Tipo de Estudio", queryset=models.Category.objects.all(), required=False)
     entity = forms.CharField(label="Laboratorio", required=False)
     professional = forms.CharField(label="Profesional", required=False)
 
     def clean(self):
         data = super().clean()
-        date = data.get('date')
-        if date > datetime.date.today():
-            self.add_error('date', 'Fecha inválida.')
-            raise ValidationError('Ups... algún campo está mal')
+        if not data.get('name'):
+            self.add_error('name', 'Este campo es requerido')
+        if not data.get('category'):
+            self.add_error('category', 'Este campo es requerido')
         return data
+
+class FileForm(forms.Form):
+    file = forms.FileField()

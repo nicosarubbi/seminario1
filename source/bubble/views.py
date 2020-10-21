@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 import datetime
 from bubble import forms, models
 
@@ -42,24 +43,67 @@ def document_list(request):
     context = common_context(request, 'document_list', documents=qs)
     return render(request, 'document_list.html', context)
 
-def document_create(request):
-    if request.method == "POST":
-        form = forms.DocumentForm(data=request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            models.Document.objects.create(profile=request.user.profile, **data)
-            return redirect('document-list')
-    else:
-        form = forms.DocumentForm()
+def document_ok(request):
+    # upload file if there is any
+    form = forms.FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        file = form.cleaned_data['file']
+        models.File.objects.create(
+            profile=request.user.profile,
+            file=file,
+            name=file.name,
+        )
+    # save document
+    form = forms.DocumentForm(request.POST)
+    if form.is_valid():
+        data = form.cleaned_data
+        doc = models.Document.objects.create(profile=request.user.profile, **data)
+        models.File.objects.filter(document=None).update(document=doc)
+        return redirect('document-list')
+    return document_continue(request, form)
+
+def document_add(request):
+    form = forms.FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        file = form.cleaned_data['file']
+        models.File.objects.create(
+            profile=request.user.profile,
+            file=file,
+            name=file.name,
+        )
+
+def document_remove(request, id):
+    models.File.objects.filter(pk=id).delete()
+    return document_continue(request)
+
+def document_continue(request, form=None):
     context = common_context(request, 'document_create',
-        form=form,
+        form=form or forms.DocumentForm(),
+        form2=forms.FileForm(),
+        files=models.File.objects.filter(document=None),
     )
     return render(request, 'document_create.html', context)
 
+def document_create(request):
+    if request.method == "POST":
+        submit_name = request.POST["submit"]
+        if submit_name == "ok":
+            return document_ok(request)
+        if submit_name == "add":
+            document_add(request)
+        if submit_name.startswith('remove-'):
+            document_remove(request, submit_name.replace('remove-', ''))
+        return document_continue(request, forms.DocumentForm(request.POST))
+    return document_continue(request)
+
 def document_view(request, pk):
-    context = common_context(request, 'document_view')
+    doc = models.Document.objects.get(pk=pk)
+    context = common_context(request, 'document_view', document=doc)
     return render(request, 'document_view.html', context)
 
+def document_delete(request, pk):
+    models.Document.objects.filter(pk=pk, profile=request.user.profile).delete()
+    return redirect('document-list')
 
 def vaccine_list(request):
     context = common_context(request, 'vaccine_list')
