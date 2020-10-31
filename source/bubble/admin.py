@@ -30,14 +30,6 @@ admin.site.register(models.Category)
 admin.site.register(models.Profile)
 admin.site.register(models.Document)
 admin.site.register(models.File)
-admin.site.register(models.Observation)
 admin.site.register(models.Calendar)
-admin.site.register(models.VaccineAge)
-admin.site.register(models.VaccineDose)
+admin.site.register(models.Vaccine)
 
-
-@admin.register(models.Vaccine)
-class VaccineAdmin(admin.ModelAdmin):
-    list_display = ['name', 'order', 'note_number', 'exclusive']
-    inlines = [inline(models.VaccineDose, link=True)]
-    list_editable = ['order']
