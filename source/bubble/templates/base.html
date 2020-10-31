@@ -48,16 +48,16 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                  <li class="nav-item {% if active_group == "home" %}active{% endif %}">
+                  <li class="nav-item {% if nav_page == "home" %}active{% endif %}">
                       <a class="nav-link" href="/home">Home </a>
                   </li>
-                  <li class="nav-item {% if active_page == "document_list" %}active{% endif %}">
+                  <li class="nav-item {% if nav_page == "document_list" %}active{% endif %}">
                       <a class="nav-link" href="/estudios">Mis Estudios</a>
                   </li>
-                  <li class="nav-item {% if active_group == "vaccine" %}active{% endif %}">
+                  <li class="nav-item {% if nav_page == "vaccine_list" %}active{% endif %}">
                       <a class="nav-link" href="/vacunas">Mis Vacunas</a>
                   </li>
-                  <li class="nav-item {% if active_page == "document_create" %}active{% endif %}">
+                  <li class="nav-item {% if nav_page == "document_create" %}active{% endif %}">
                       <a class="nav-link" href="/estudios/alta">Subir Estudios</a>
                   </li>
               </ul>

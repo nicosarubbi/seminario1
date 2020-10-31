@@ -30,7 +30,7 @@ SECRET_KEY = 'gx1%0jhpgv4@l0=(-ksoud5tb^^4=7)6!@!c67f)db$qe+_k&x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['', 'localhost', 'nicosarubbi.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = "/login"
 
@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'bubble.context_processors.profile_context',
             ],
         },
     },

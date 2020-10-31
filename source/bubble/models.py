@@ -15,7 +15,7 @@ class Profile(models.Model):
 
     @property
     def age(self):
-        return 10  # FIXME
+        return 18  # FIXME
 
     def get_nickname(self):
         return self.nickname or self.first_name
@@ -38,9 +38,14 @@ class Category(models.Model):
 
 
 class Document(models.Model):
+    STUDY = 'S'
+    VACCINE = 'V'
+    TYPE_CHOICES = [(STUDY, 'Estudio'), (VACCINE, 'Vacuna')]
+
     profile = models.ForeignKey('Profile', related_name='documents', on_delete=models.CASCADE)
     category = models.ForeignKey('Category', related_name='documents',
                                  on_delete=models.SET_NULL, null=True, blank=True)
+    type = models.CharField(max_length=1, default=STUDY, choices=TYPE_CHOICES)
     created = models.DateTimeField(auto_now_add=True)
     date = models.DateField(default=datetime.date.today)
     name = models.CharField(max_length=100)

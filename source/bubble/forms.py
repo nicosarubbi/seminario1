@@ -10,6 +10,7 @@ class DocumentForm(forms.Form):
     category = forms.ModelChoiceField(label="Tipo de Estudio", queryset=models.Category.objects.all(), required=False)
     entity = forms.CharField(label="Laboratorio", required=False)
     professional = forms.CharField(label="Profesional", required=False)
+    description = forms.CharField(label="Descripción", max_length=1000, required=False, strip=True, widget=forms.Textarea(attrs={"rows":3}))
 
     def clean(self):
         data = super().clean()

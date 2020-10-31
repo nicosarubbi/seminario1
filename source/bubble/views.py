@@ -9,27 +9,12 @@ from django.shortcuts import render, redirect
 from bubble import forms, models
 
 
-def common_context(request, page='', **kwargs):
-    if request.user.is_anonymous:
-        profile = None
-    else:
-        profile = request.user.profile
-
-    kwargs.update({
-        'profile': profile,
-        'active_page': page,
-        'active_group': page.split('_')[0],
-    })
-    return kwargs
-
 def landing(request):
-    context = common_context(request, 'landing')
-    return render(request, 'landing.html', context)
+    return render(request, 'landing.html')
 
 @login_required
 def home(request):
-    context = common_context(request, 'home')
-    return render(request, 'home.html', context)
+    return render(request, 'home.html', {'nav_page': 'home'})
 
 def login_view(request):
     error = False
@@ -45,10 +30,10 @@ def login_view(request):
         error = True
     else:
         form = AuthenticationForm()
-    context = common_context(request, 'login',
-        form=form,
-        error=error,
-    )
+    context = {
+        'form': form,
+        'error': error,
+    }
     return render(request, 'login.html', context)
 
 @login_required
@@ -58,15 +43,13 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-    context = common_context(request, 'profile')
-    return render(request, 'profile.html', context)
+    return render(request, 'profile.html')
 
 
 @login_required
 def document_list(request):
     qs = models.Document.objects.filter(profile=request.user.profile).order_by('-date', '-created')
-    context = common_context(request, 'document_list', documents=qs)
-    return render(request, 'document_list.html', context)
+    return render(request, 'document_list.html', {'documents': qs, 'nav_page': 'document_list'})
 
 def document_ok(request):
     # upload file if there is any
@@ -102,11 +85,12 @@ def document_remove(request, id):
     return document_continue(request)
 
 def document_continue(request, form=None):
-    context = common_context(request, 'document_create',
-        form=form or forms.DocumentForm(),
-        form2=forms.FileForm(),
-        files=models.File.objects.filter(document=None),
-    )
+    context = {
+        'form': form or forms.DocumentForm(),
+        'form2': forms.FileForm(),
+        'files': models.File.objects.filter(document=None),
+        'nav_page': 'document_create',
+    }
     return render(request, 'document_create.html', context)
 
 @login_required
@@ -125,8 +109,7 @@ def document_create(request):
 @login_required
 def document_view(request, pk):
     doc = models.Document.objects.get(pk=pk)
-    context = common_context(request, 'document_view', document=doc)
-    return render(request, 'document_view.html', context)
+    return render(request, 'document_view.html', {'document': doc})
 
 @login_required
 def document_delete(request, pk):
@@ -135,31 +118,25 @@ def document_delete(request, pk):
 
 @login_required
 def vaccine_list(request):
-    context = common_context(request, 'vaccine_list')
-    return render(request, 'vaccine_list.html', context)
+    return render(request, 'vaccine_list.html', {})
 
 @login_required
 def vaccine_create(request):
-    context = common_context(request, 'vaccine_create')
-    return render(request, 'vaccine_create.html', context)
+    return render(request, 'vaccine_create.html', {})
 
 @login_required
 def vaccine_view(request, pk):
-    context = common_context(request, 'vaccine_view')
-    return render(request, 'vaccine_view.html', context)
+    return render(request, 'vaccine_view.html', {})
 
 
 @login_required
 def group_list(request):
-    context = common_context(request, 'group_list')
-    return render(request, 'group_list.html', context)
+    return render(request, 'group_list.html', {})
 
 @login_required
 def group_create(request):
-    context = common_context(request, 'group_create')
-    return render(request, 'group_create.html', context)
+    return render(request, 'group_create.html', {})
 
 @login_required
 def group_view(request, pk):
-    context = common_context(request, 'group_view')
-    return render(request, 'group_view.html', context)
+    return render(request, 'group_view.html', {})
