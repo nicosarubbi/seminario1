@@ -54,6 +54,9 @@ class Document(models.Model):
     entity = models.TextField(blank=True, default='')
     professional = models.TextField(blank=True, default='')
     public_link = models.TextField(blank=True, default='')
+    
+    vaccine = models.ForeignKey('VaccineDose', related_name='documents', on_delete=models.CASCADE,
+                                null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -74,3 +77,72 @@ class File(models.Model):
 class Observation(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
+
+
+class Calendar(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    file = models.FileField()
+
+    def __str__(self):
+        return self.created
+
+
+class Vaccine(models.Model):
+    order = models.IntegerField(default=0)
+    name = models.CharField(max_length=50)
+    note_number = models.IntegerField(null=True, blank=True)
+    note = models.TextField(blank=True, default='')
+    exclusive = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def title(self):
+        if self.note_number:
+            return f"{self.name} ({self.note_number})"
+        return self.name
+
+    def get_note_text(self):
+        return f"({self.note_number}) {self.note}"
+
+
+class VaccineAge(models.Model):
+    order = models.IntegerField(default=0)
+    title = models.CharField(max_length=20, blank=True, default='')
+    small_title = models.TextField(blank=True, default='')
+    months = models.IntegerField(default=0)
+    age = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ['order', 'id']
+    
+    def __str__(self):
+        if self.title:
+            return self.title
+        if self.age:
+            return f"{self.age} años"
+        return f"{self.months} meses"
+
+
+class VaccineDose(models.Model):
+    vaccine = models.ForeignKey('Vaccine', on_delete=models.CASCADE, related_name='doses')
+    age = models.ForeignKey('VaccineAge', on_delete=models.CASCADE, related_name='doses')
+    text = models.CharField(max_length=50)
+    note_letter = models.CharField(max_length=1, blank=True, default='')
+    note_text = models.TextField(blank=True, default='')
+    cells = models.IntegerField(default=1)
+
+    def __str__(self):
+        if self.note_letter:
+            return f"{self.text} {self.note_letter}"
+        return self.text
+
+
+
+
+
+

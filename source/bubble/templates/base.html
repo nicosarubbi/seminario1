@@ -52,10 +52,10 @@
                       <a class="nav-link" href="/home">Home </a>
                   </li>
                   <li class="nav-item {% if nav_page == "document_list" %}active{% endif %}">
-                      <a class="nav-link" href="/estudios">Mis Estudios</a>
+                      <a class="nav-link" href="/estudios">Estudios</a>
                   </li>
                   <li class="nav-item {% if nav_page == "vaccine_list" %}active{% endif %}">
-                      <a class="nav-link" href="/vacunas">Mis Vacunas</a>
+                      <a class="nav-link" href="/vacunas">Vacunas</a>
                   </li>
                   <li class="nav-item {% if nav_page == "document_create" %}active{% endif %}">
                       <a class="nav-link" href="/estudios/alta">Subir Estudios</a>
@@ -63,7 +63,7 @@
               </ul>
               <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      ¡HOLA {{ profile.get_nickname }}! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
+                      <h4 style='color:YELLOW'>HOLA</h4> {{ profile.get_nickname }} &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="/profile">Ver Perfil</a>
