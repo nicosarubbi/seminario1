@@ -61,6 +61,19 @@ class Document(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def query(cls, profile, query='', vaccine=False):
+        dtype = vaccine and cls.VACCINE or cls.STUDY
+        qs = cls.objects.filter(profile=profile, type=dtype)
+        if query:
+            Q = models.Q
+            q_name = Q(name__icontains=query)
+            q_description = Q(description__icontains=query)
+            q_entity = Q(entity__icontains=query)
+            q_professional = Q(professional__icontains=query)
+            qs = qs.filter(q_name | q_description | q_entity | q_professional)
+        return qs
+
 
 class File(models.Model):
     created = models.DateTimeField(auto_now_add=True)

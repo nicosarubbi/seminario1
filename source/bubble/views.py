@@ -48,8 +48,9 @@ def profile(request):
 
 @login_required
 def document_list(request):
-    qs = models.Document.objects.filter(profile=request.user.profile).order_by('-date', '-created')
-    return render(request, 'document_list.html', {'documents': qs, 'nav_page': 'document_list'})
+    query = request.GET.get('q', '')
+    qs = models.Document.query(profile=request.user.profile, query=query)
+    return render(request, 'document_list.html', {'documents': qs.order_by('-date', '-created'), 'nav_page': 'document_list'})
 
 def document_ok(request):
     # upload file if there is any

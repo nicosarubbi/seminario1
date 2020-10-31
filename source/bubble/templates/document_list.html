@@ -6,12 +6,18 @@
 <div class="container col-md-12">
   <div class="col-md-12 panelEstudios">
     <a href="/estudios/alta"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio">+ SUBIR UN ESTUDIO</button></a>
+    
     <div class="col-md-7 input-group buscarEstudios">
-      <input type="text" class="form-control" placeholder="BUSCAR" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
-      </div>
+      <form method="get">
+        <div class="input-group mb-3">
+          <input type="text" name="q" class="form-control" placeholder="Buscar">
+          <div class="input-group-append">
+            <button class="btn" type="submit"><span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span></button>
+          </div>
+        </div>
+      </form>
     </div>
+    
   </div>
   {% for document in documents %}
     <div id="accordion">

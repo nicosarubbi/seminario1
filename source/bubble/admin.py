@@ -32,4 +32,3 @@ admin.site.register(models.Document)
 admin.site.register(models.File)
 admin.site.register(models.Calendar)
 admin.site.register(models.Vaccine)
-
