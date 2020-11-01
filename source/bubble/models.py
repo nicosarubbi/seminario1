@@ -63,14 +63,14 @@ class Document(models.Model):
 
     @classmethod
     def query(cls, profile, query='', vaccine=False):
+        Q = models.Q
         dtype = vaccine and cls.VACCINE or cls.STUDY
         qs = cls.objects.filter(profile=profile, type=dtype)
-        if query:
-            Q = models.Q
-            q_name = Q(name__icontains=query)
-            q_description = Q(description__icontains=query)
-            q_entity = Q(entity__icontains=query)
-            q_professional = Q(professional__icontains=query)
+        for q in query.split():
+            q_name = Q(name__icontains=q)
+            q_description = Q(description__icontains=q)
+            q_entity = Q(entity__icontains=q)
+            q_professional = Q(professional__icontains=q)
             qs = qs.filter(q_name | q_description | q_entity | q_professional)
         return qs
 

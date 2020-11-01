@@ -43,7 +43,33 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = forms.ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            data = form.cleaned_data
+            if 'password' in data:
+                print('change password')
+                request.user.set_password(data.pop('password'))
+            email = data.pop('email', None)
+            if email and email != request.user.email:
+                print('change email')
+                request.user.email = email
+                request.user.username = email
+                request.user.save()
+            models.Profile.objects.filter(pk=profile.pk).update(**data)
+            return redirect('home')
+    else:
+        form = forms.ProfileForm(dict(
+            email=request.user.email,
+            first_name=profile.first_name,
+            last_name=profile.last_name,
+            nickname=profile.nickname,
+            phone=profile.phone,
+            birthdate=profile.birthdate,
+            password='',
+        ), instance=profile)
+    return render(request, 'profile.html', {'form': form})
 
 
 @login_required
