@@ -51,6 +51,7 @@ def profile(request):
             data = form.cleaned_data
             if 'password' in data:
                 request.user.set_password(data.pop('password'))
+                request.user.save()
             email = data.pop('email', None)
             if email and email != request.user.email:
                 request.user.email = email

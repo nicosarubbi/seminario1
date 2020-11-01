@@ -53,7 +53,7 @@ class ProfileForm(forms.ModelForm):
         data = super().clean()
         qs = User.objects.filter(username=data.get('email'))
         if self.instance and self.instance.pk:
-            qs = qs.exclude(pk=self.instance.pk)
+            qs = qs.exclude(id=self.instance.user_id)
             if not data.get('password', None):
                 # TOOD: validate password
                 data.pop('password', None)
