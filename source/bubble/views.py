@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -43,8 +44,50 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = forms.ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            data = form.cleaned_data
+            if 'password' in data:
+                request.user.set_password(data.pop('password'))
+            email = data.pop('email', None)
+            if email and email != request.user.email:
+                request.user.email = email
+                request.user.username = email
+                request.user.save()
+            models.Profile.objects.filter(pk=profile.pk).update(**data)
+            return redirect('home')
+    else:
+        form = forms.ProfileForm(dict(
+            email=request.user.email,
+            first_name=profile.first_name,
+            last_name=profile.last_name,
+            nickname=profile.nickname,
+            phone=profile.phone,
+            birthdate=profile.birthdate,
+            password='',
+        ), instance=profile)
+    return render(request, 'profile.html', {'form': form})
 
+def register(request):
+    if request.method == "POST":
+        form = forms.ProfileForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            email = data.pop('email')
+            password = data.pop('password', None)
+            user = User.objects.create(username=email, email=email)
+            user.set_password(password)
+            user.save()
+            profile = models.Profile.objects.create(user=user, **data)
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = forms.ProfileForm()
+    return render(request, 'register.html', {'form': form})
 
 @login_required
 def document_list(request):
