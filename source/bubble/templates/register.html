@@ -1,89 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="format-detection" content="telephone=no"/>
-    <link rel="icon" href="images/favicon-1.ico" type="image/x-icon">
-      <title>Bubble Med</title>
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load static %}
 
-    <!-- Bootstrap -->
-   
-    <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+{% block head %}
+  {{ form.media }}
+{% endblock %}
 
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+{% block body %}
+  <div class="container col-md-12">
+    <div class="textoRegistro col-md-6">
+      <span>BUBBLE MED te ayuda a gestionar el guardado de tus estudios médicos, tus vacunas y los de tu familia.<br><br>
+        Te permite visualizarlos, listarlos y compartirlos de manera ágil y segura.</span>
+    </div>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="icon" type="imagenes/vnd.microsoft.icon" href="imagenes/favicon.ico">
-
-  </head>
-
-  <body>
-
-  <!--========================================================
-                            HEADER
-  =========================================================-->
-   <header class="header col-md-12" >  
-    <div class="espacio col-md-4"></div>
-          <img class="logo col-md-4" src="imagenes/logo.jpeg">
-    <div class="espacio col-md-4"></div>
-      
-    </header>
-   
-  <!--========================================================
-                            CONTENT
-  =========================================================-->
-
-    <main class="col-md-12">   
-
-   
- <hr class="separador">
-      
-
-     
-        <div class="container col-md-12">
-        <div class="textoRegistro col-md-6"><span>BUBBLE MED te ayuda a gestionar el guardado de tus estudios médicos, tus vacunas y los de tu familia.<br><br>
-        Te permite visualizarlos, listarlos y compartirlos de manera ágil y segura.</span></div>
-
-        <div class="formulario col-md-5"><span>CREÁ TU CUENTA</span>
-        <hr class="separador">
-
-        <form action="">
-        <input type="text" id="nombre" name="nombre" placeholder="NOMBRE" required><br>
-        <input type="text" id="apellido" name="apellido" placeholder="APELLIDO" required><br>
-        <input type="email" id="email" name="email" placeholder="E-MAIL" required><br>
-        <input type="text" id="nick" name="nick" placeholder="NICK" required><br>
-        <input type="password" id="password" name="password" placeholder="PASSWORD"><br>
-        <label><input class="check" type="checkbox" id="mayor" value="soyMayor" required> DECLARO SER MAYOR DE EDAD</label><br>
-        <label><input class="check" type="checkbox" id="terminos" value="terminosYCondiciones" required> ACEPTO TÉRMINOS Y CONDICIONES</label><br>
-        <input class="botonFormulario" type="submit" value="CREAR">
-        </form>
-<a class="linkForm" href="miBubbleMed.html">Ya tengo cuenta, quiero ingresar</a>
+    <div class="formulario col-md-5"><span>CREÁ TU CUENTA</span>
+      <hr class="separador">
+      <form method="post">
+        {% csrf_token %}
+        <div>
+          {{ form|bootstrap }}
         </div>
+        <label>
+          <input class="check" type="checkbox" id="mayor" value="soyMayor" required>
+          Declaro ser mayor de 18 años
+        </label>
+        <br/>
+        <label>
+          <input class="check" type="checkbox" id="terminos" value="terminosYCondiciones" required>
+          Acepto los términos y condiciones
+        </label>
+        <br>
+        <button type="submit" class="botonFormularioSubir" name="submit" value="ok">Registrarme</button>
+      </form>
 
-        </div>  
-
-</main>
-
-    <!--========================================================
-                            FOOTER
-  =========================================================-->
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->         
-    <script src="js/bootstrap.min.js"></script>
- <script src="js/tm-scripts.js"></script>    
-  <!-- </script> -->
-
-
-  </body>
-</html>
+      <a class="linkForm" href="miBubbleMed.html">Ya tengo cuenta, quiero ingresar</a>
+    </div>
+  </div>  
+{% endblock %}
