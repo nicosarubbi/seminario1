@@ -1,40 +1,50 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 {% load static %}
 
+{% block head %}
+  {{ form.media }}
+  {{ form2.media }}
+{% endblock %}
+
 {% block body %}
+  <div class="container col-md-12">
+    <div class="contenedorFormularioSubir col-md-12">
+      <h3 class="col-md-6">SUBÍ LA VACUNA</h3><br>
+      <div class="col-md-12">
+        <form role="form" method="post" action="/vacunas/alta" enctype="multipart/form-data">
+          {% csrf_token %}
 
+          <div class="col-md-6" style="float: left;">
+            {{ form|bootstrap }}
+          </div>
 
-   <div class="container col-md-12">
-
-          <div class="contenedorFormularioSubir col-md-12">
-          <h3 class="col-md-6">SUBÍ LA VACUNA</h3><br>
-
-          <div class="col-md-12">
-
-           <form action="">
-            <div class="col-md-6" style="float: left;">
-           <input class="inputSubir" type="text" id="nombre" name="nombre" placeholder="NOMBRE DE LA VACUNA" required><br>
-           <input class="dateEstudioSubir" id="fecha" name="fecha" type="text" class="form-control" placeholder="FECHA" onfocus="(this.type='date')"/ required><br>
-
-        <input class="inputSubir" type="text" id="lugar" name="lugar" placeholder="ESTABLECIMIENTO" required><br>
-        <input class="inputSubir" type="text" id="profesional" name="profesional" placeholder="PROFESIONAL" required><br>
-
-</div>
-           <div class="col-md-6" style="float: left;">
-        <input style="width: 300px;" id="file-1" type="file" multiple class="file" data-overwrite-initial="false">
-
-      </div>
-
-      <div class="col-md-12" style="float: left;">
-        <input class="botonFormularioSubir" data-dismiss="modal" type="submit" value="SUBIR">
-      </div>
+          <div class="col-md-6" style="float: left;">
+            Archivos
+            <table class="table">
+              <tbody>
+                {% for file in files %}
+                <tr>
+                  <th scope="row">{{file.name}}</th>
+                  <td>
+                    <button type="submit" class="btn btn-secondary btn-sm" name="submit" value="remove-{{file.id}}">
+                      <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td><input type="file" class="form-control-file" id="file_id" name="file"></td>
+                  <td><button type="submit" class="btn btn-secondary btn-sm" name="submit" value="add">+</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-12" style="float: left;">
+            <button type="submit" class="botonFormularioSubir" name="submit" value="ok">ACEPTAR</button>
+          </div>
         </form>
-
-        </div>
-
-        </div>
-
-        </div>
-
-</main>
+      </div>
+    </div>
+  </div>
 {% endblock %}

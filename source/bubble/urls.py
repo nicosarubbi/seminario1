@@ -16,6 +16,8 @@ urlpatterns = [
     path('vacunas', views.vaccine_list, name='vaccine-list'),
     path('vacunas/alta', views.vaccine_create, name='vaccine-create'),
     path('vacunas/<int:pk>', views.vaccine_view, name='vaccine-view'),
+    path('vacunas/calendar', views.vaccine_calendar, name='vaccine-calendar'),
+    path('vacunas/<int:pk>/delete', views.vaccine_delete, name='vaccine-delete'),
 
     path('grupo', views.group_list, name='group-list'),
     path('grupo/alta', views.group_create, name='group-create'),

@@ -154,6 +154,7 @@ width: 180px;
     border-radius: 25px;
     padding: 20px;
     margin-bottom: 20px;
+    border-style: dotted;
 }
 
 .botonHome i{

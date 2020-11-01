@@ -16,8 +16,18 @@ class DocumentForm(forms.Form):
         data = super().clean()
         if not data.get('name'):
             self.add_error('name', 'Este campo es requerido')
-        if not data.get('category'):
-            self.add_error('category', 'Este campo es requerido')
+        return data
+
+class VaccineForm(forms.Form):
+    name = forms.CharField(label="Nombre de la vacuna", required=False)
+    date = DateField(label='Fecha', initial=datetime.date.today, required=False)
+    entity = forms.CharField(label="Establecimiento", required=False)
+    description = forms.CharField(label="Observaciones", max_length=1000, required=False, strip=True, widget=forms.Textarea(attrs={"rows":3}))
+
+    def clean(self):
+        data = super().clean()
+        if not data.get('name'):
+            self.add_error('name', 'Este campo es requerido')
         return data
 
 class FileForm(forms.Form):

@@ -54,9 +54,6 @@ class Document(models.Model):
     entity = models.TextField(blank=True, default='')
     professional = models.TextField(blank=True, default='')
     public_link = models.TextField(blank=True, default='')
-    
-    vaccine = models.ForeignKey('Vaccine', related_name='documents', on_delete=models.CASCADE,
-                                null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -71,7 +68,8 @@ class Document(models.Model):
             q_description = Q(description__icontains=query)
             q_entity = Q(entity__icontains=query)
             q_professional = Q(professional__icontains=query)
-            qs = qs.filter(q_name | q_description | q_entity | q_professional)
+            q_category = Q(category__name__icontains=query)
+            qs = qs.filter(q_name | q_description | q_entity | q_professional | q_category)
         return qs
 
 
@@ -94,9 +92,3 @@ class Calendar(models.Model):
     def __str__(self):
         return self.created
 
-
-class Vaccine(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name

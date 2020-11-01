@@ -117,18 +117,84 @@ def document_delete(request, pk):
     models.Document.objects.filter(pk=pk, profile=request.user.profile).delete()
     return redirect('document-list')
 
+###############################################################################################
+
 @login_required
 def vaccine_list(request):
-    return render(request, 'vaccine_list.html', {})
+    query = request.GET.get('q', '')
+    qs = models.Document.query(profile=request.user.profile, query=query, vaccine=True)
+    return render(request, 'vaccine_list.html', {'vaccines': qs.order_by('-date', '-created'), 'nav_page': 'vaccine_list'})
+
+def vaccine_ok(request):
+    # upload file if there is any
+    form = forms.FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        file = form.cleaned_data['file']
+        models.File.objects.create(
+            profile=request.user.profile,
+            file=file,
+            name=file.name,
+        )
+    # save document
+    form = forms.VaccineForm(request.POST)
+    if form.is_valid():
+        data = form.cleaned_data
+        doc = models.Document.objects.create(profile=request.user.profile, type="V", **data)
+        models.File.objects.filter(document=None).update(document=doc)
+        return redirect('vaccine-list')
+    return document_continue(request, form)
+
+def vaccine_add(request):
+    form = forms.FileForm(request.POST, request.FILES)
+    if form.is_valid():
+        file = form.cleaned_data['file']
+        models.File.objects.create(
+            profile=request.user.profile,
+            file=file,
+            name=file.name,
+        )
+
+def vaccine_remove(request, id):
+    models.File.objects.filter(pk=id).delete()
+    return vaccine_continue(request)
+
+def vaccine_continue(request, form=None):
+    context = {
+        'form': form or forms.VaccineForm(),
+        'form2': forms.FileForm(),
+        'files': models.File.objects.filter(document=None),
+        'nav_page': 'vaccine_create',
+    }
+    return render(request, 'vaccine_create.html', context)
 
 @login_required
 def vaccine_create(request):
-    return render(request, 'vaccine_create.html', {})
+    if request.method == "POST":
+        submit_name = request.POST["submit"]
+        if submit_name == "ok":
+            return vaccine_ok(request)
+        if submit_name == "add":
+            vaccine_add(request)
+        if submit_name.startswith('remove-'):
+            vaccine_remove(request, submit_name.replace('remove-', ''))
+        return vaccine_continue(request, forms.VaccineForm(request.POST))
+    return vaccine_continue(request)
 
 @login_required
 def vaccine_view(request, pk):
-    return render(request, 'vaccine_view.html', {})
+    doc = models.Document.objects.get(pk=pk)
+    return render(request, 'vaccine_view.html', {'vaccine': doc})
 
+@login_required
+def vaccine_delete(request, pk):
+    models.Document.objects.filter(pk=pk, profile=request.user.profile).delete()
+    return redirect('vaccine-list')
+
+###############################################################################################
+
+@login_required
+def vaccine_calendar(request):
+    return render(request, 'vaccine_calendar.html', {})
 
 @login_required
 def group_list(request):
