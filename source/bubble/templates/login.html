@@ -12,7 +12,7 @@
       <form method="POST" action="" role="form" >
         {% csrf_token %}
         {% if error %}
-          <p style="font-size:14px">El nombre de usuario o contraseña es incorrecto.</p>
+          <p style="font-size:14px">El email o contraseña es incorrecto.</p>
         {% endif %}
         {{ form|bootstrap }}
         <button type="submit" class="btn btn-primary" name="submit" value="ok">INGRESAR</button>
