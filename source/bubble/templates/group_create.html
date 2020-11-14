@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load static %}
+
+{% block head %}
+  {{ form.media }}
+  {{ form2.media }}
+{% endblock %}
+
+{% block body %}
+  <div class="container col-md-12">
+    <div class="contenedorFormularioSubir col-md-12">
+      <h3 class="col-md-6">CARGÁ UN DEPENDIENTE</h3><br>
+      <div class="col-md-12">
+        <form role="form" method="post" action="/grupo/alta" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="col-md-6" style="float: left;">
+            {{ form|bootstrap }}
+          </div>
+          <div class="col-md-12" style="float: left;">
+            <button type="submit" class="botonFormularioSubir" name="submit" value="ok">ACEPTAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

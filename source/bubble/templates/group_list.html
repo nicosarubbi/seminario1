@@ -3,8 +3,30 @@
 
 {% block body %}
 
-        <div class="container col-md-12">
-<img class="calendarioVacunacion" src="{% static "imagenes/enConstruccion.jpg" %}">
+<div class="container col-md-12">
+  <div class="col-md-12 panelEstudios">
+    <a href="/grupo/alta"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio">+ CARGAR UN DEPENDIENTE</button></a>
+       
+  </div>
+  {% for document in documents %}
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse" href="#collapse{{document.id}}">{{document.name}}</a>
+          <a class="card-link iconCard" href="/estudios/{{document.id}}/delete"><i class="fas fa-trash-alt"></i></a>
+          <a class="card-link iconCard" href="#"><i class="fas fa-share-alt"></i></a>
+          <a class="card-link iconCard" href="/estudios/{{document.id}}"><i class="far fa-eye"></i></a>
         </div>
+        <div id="collapse{{document.id}}" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA: </b>{{document.date}}</span>
+            <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> TIPO:</b> {{document.category}}</span>
+            <span class="col-md-4 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> LUGAR:</b> {{document.entity|default:"-"}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+ </div>
 
 {% endblock %}

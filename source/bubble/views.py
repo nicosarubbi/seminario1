@@ -186,7 +186,7 @@ def vaccine_ok(request):
         doc = models.Document.objects.create(profile=request.user.profile, type="V", **data)
         models.File.objects.filter(document=None).update(document=doc)
         return redirect('vaccine-list')
-    return document_continue(request, form)
+    return vaccine_continue(request, form)
 
 def vaccine_add(request):
     form = forms.FileForm(request.POST, request.FILES)
@@ -242,11 +242,39 @@ def vaccine_calendar(request):
 
 @login_required
 def group_list(request):
-    return render(request, 'group_list.html', {})
+     query = request.GET.get('q', '')
+     qs = models.Document.query(profile=request.user.profile, query=query, vaccine=True)
+     return render(request, 'group_list.html', {'groups': qs.order_by('-date', '-created'), 'nav_page': 'group_list'})
+
+def group_ok(request):
+    # save document
+    form = forms.GroupForm(request.POST)
+    if form.is_valid():
+        data = form.cleaned_data
+        doc = models.Document.objects.create(profile=request.user.profile, type="V", **data)
+        models.File.objects.filter(document=None).update(document=doc)
+        return redirect('group-list')
+    return group_continue(request, form)
+
+def group_continue(request, form=None):
+    context = {
+        'form': form or forms.GroupForm(),
+        'nav_page': 'group_create',
+    }
+    return render(request, 'group_create.html', context)
 
 @login_required
 def group_create(request):
-    return render(request, 'group_create.html', {})
+    if request.method == "POST":
+        submit_name = request.POST["submit"]
+        if submit_name == "ok":
+            return group_ok(request)
+        if submit_name == "add":
+            group_add(request)
+        if submit_name.startswith('remove-'):
+            group_remove(request, submit_name.replace('remove-', ''))
+        return group_continue(request, forms.GroupForm(request.POST))
+    return group_continue(request)
 
 @login_required
 def group_view(request, pk):
