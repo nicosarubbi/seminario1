@@ -4,7 +4,7 @@ from utils.fields import OneToOneField
 
 
 class Profile(models.Model):
-    user = OneToOneField('auth.User', related_name='profile', on_delete=models.CASCADE)
+    user = OneToOneField('auth.User', related_name='profile', on_delete=models.CASCADE, null=True, blank=True)
     parent = models.ForeignKey('Profile', related_name='childs', on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=60)
@@ -12,6 +12,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=60, blank=True, default='')
     phone = models.CharField(max_length=20, blank=True, default='')
     birthdate = models.DateField(null=True, blank=True)
+    relationship = models.CharField(max_length=20, blank=True, default='')
 
     @property
     def age(self):

@@ -5,20 +5,18 @@ from django.contrib.auth.models import User
 from utils.fields import DateField
 from bubble import models
 
-class GroupForm(forms.Form):
-    name = forms.CharField(label="Nombre Completo", required=False)
+class GroupForm(forms.ModelForm):
+    first_name = forms.CharField(label="Nombre", required=True, max_length=60)
+    last_name = forms.CharField(label="Apellido", required=True, max_length=60)
     birthdate = DateField(label='Fecha de Nacimiento', initial=datetime.date.today, required=False)
-    phone = forms.CharField(label="Teléfono", required=False)
-    mail = forms.CharField(label="Mail", required=False)
-    relationship = forms.CharField(label="Relación", required=False)
+    relationship = forms.CharField(label="Relación", required=False, max_length=20)
 
-    def clean(self):
-        data = super().clean()
-        if not data.get('name'):
-            self.add_error('name', 'Este campo es requerido')
-        return data
+    class Meta:
+        model = models.Profile
+        fields = ['first_name', 'last_name','birthdate', 'relationship']
 
 class DocumentForm(forms.Form):
+    profile = forms.ModelChoiceField(label="Para", queryset=models.Profile.objects.all(), required=True)
     name = forms.CharField(label="Nombre del estudio", required=False)
     date = DateField(label='Fecha', initial=datetime.date.today, required=False)
     category = forms.ModelChoiceField(label="Tipo de Estudio", queryset=models.Category.objects.all(), required=False)

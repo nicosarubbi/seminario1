@@ -22,5 +22,6 @@ urlpatterns = [
 
     path('grupo', views.group_list, name='group-list'),
     path('grupo/alta', views.group_create, name='group-create'),
+    path('grupo/<int:pk>/delete', views.group_delete, name='group-delete'),
     path('grupo/<int:pk>', views.group_view, name='group-view'),
 ]
