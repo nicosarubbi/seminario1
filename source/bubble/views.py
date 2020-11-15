@@ -181,9 +181,17 @@ def document_delete(request, pk):
 
 @login_required
 def vaccine_list(request):
-    query = request.GET.get('q', '')
-    qs = models.Document.query(profile=request.user.profile, query=query, vaccine=True)
-    return render(request, 'vaccine_list.html', {'vaccines': qs.order_by('-date', '-created'), 'nav_page': 'vaccine_list'})
+    form = forms.FilterForm(request.GET)
+    profile = request.user.profile
+    qs = models.Profile.objects.filter(Q(parent=profile) | Q(pk=profile.pk))
+    form.fields['profile'].queryset=qs
+    if form.is_valid():
+        data = form.cleaned_data
+        profile = data['profile'] or profile
+        qs = models.Document.query(profile=profile, query=data['q'], vaccine=True)
+    else:
+        qs = models.Document.query(profile=request.user.profile, query="", vaccine=True)
+    return render(request, 'vaccine_list.html', {'vaccines': qs.order_by('-date', '-created'), 'nav_page': 'vaccine_list', 'form': form})
 
 def vaccine_ok(request):
     # upload file if there is any
@@ -197,9 +205,12 @@ def vaccine_ok(request):
         )
     # save document
     form = forms.VaccineForm(request.POST)
+    p = request.user.profile
+    qs = models.Profile.objects.filter(Q(parent=p) | Q(pk=p.pk))
+    form.fields['profile'].queryset=qs
     if form.is_valid():
         data = form.cleaned_data
-        doc = models.Document.objects.create(profile=request.user.profile, type="V", **data)
+        doc = models.Document.objects.create(type="V", **data)
         models.File.objects.filter(document=None).update(document=doc)
         return redirect('vaccine-list')
     return vaccine_continue(request, form)
@@ -219,8 +230,12 @@ def vaccine_remove(request, id):
     return vaccine_continue(request)
 
 def vaccine_continue(request, form=None):
+    f = forms.VaccineForm()
+    p = request.user.profile
+    qs = models.Profile.objects.filter(Q(parent=p) | Q(pk=p.pk))
+    f.fields['profile'].queryset=qs
     context = {
-        'form': form or forms.VaccineForm(),
+        'form': form or f,
         'form2': forms.FileForm(),
         'files': models.File.objects.filter(document=None),
         'nav_page': 'vaccine_create',

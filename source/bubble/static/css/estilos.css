@@ -418,3 +418,11 @@ width: 180px;
 	color: crimson;
   font-size: smaller;
 }
+
+.form-group{
+    margin-right: 15px;
+}
+
+.control-label{
+    margin-right: 5px;
+}  

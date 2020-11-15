@@ -37,6 +37,7 @@ class DocumentForm(forms.Form):
         return data
 
 class VaccineForm(forms.Form):
+    profile = forms.ModelChoiceField(label="Para", queryset=models.Profile.objects.all(), required=True)
     name = forms.CharField(label="Nombre de la vacuna", required=False)
     date = DateField(label='Fecha', initial=datetime.date.today, required=False)
     entity = forms.CharField(label="Establecimiento", required=False)
