@@ -93,9 +93,17 @@ def register(request):
 
 @login_required
 def document_list(request):
-    query = request.GET.get('q', '')
-    qs = models.Document.query(profile=request.user.profile, query=query)
-    return render(request, 'document_list.html', {'documents': qs.order_by('-date', '-created'), 'nav_page': 'document_list'})
+    form = forms.FilterForm(request.GET)
+    profile = request.user.profile
+    qs = models.Profile.objects.filter(Q(parent=profile) | Q(pk=profile.pk))
+    form.fields['profile'].queryset=qs
+    if form.is_valid():
+        data = form.cleaned_data
+        profile = data['profile'] or profile
+        qs = models.Document.query(profile=profile, query=data['q'])
+    else:
+        qs = models.Document.query(profile=request.user.profile, query="")
+    return render(request, 'document_list.html', {'documents': qs.order_by('-date', '-created'), 'nav_page': 'document_list', 'form': form})
 
 def document_ok(request):
     # upload file if there is any

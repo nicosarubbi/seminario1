@@ -5,6 +5,12 @@ from django.contrib.auth.models import User
 from utils.fields import DateField
 from bubble import models
 
+
+class FilterForm(forms.Form):
+    profile = forms.ModelChoiceField(label="De", queryset=models.Profile.objects.all(), required=False)
+    q = forms.CharField(label="Buscar", required=False)
+    
+
 class GroupForm(forms.ModelForm):
     first_name = forms.CharField(label="Nombre", required=True, max_length=60)
     last_name = forms.CharField(label="Apellido", required=True, max_length=60)
