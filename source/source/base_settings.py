@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrapform',
     'bootstrap_datepicker_plus',
-    'bubble',
     'rest_framework',
+    'bubble',
 ]
 
 MIDDLEWARE = [
