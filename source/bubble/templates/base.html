@@ -60,20 +60,30 @@
                   <li class="nav-item {% if nav_page == "document_create" %}active{% endif %}">
                       <a class="nav-link" href="/estudios/alta">Subir Estudios</a>
                   </li>
+                  <li class="nav-item d-lg-none {% if nav_page == "group_list" %}active{% endif %}">
+                    <a class="nav-link" href="/grupo">Mi Grupo</a>
+                </li>
+                <li class="nav-item d-lg-none {% if nav_page == "profile" %}active{% endif %}">
+                    <a class="nav-link" href="/profile">Ver Perfil</a>
+                </li>
+                <li class="nav-item d-lg-none">
+                    <a class="nav-link" href="/logout">Cerrar Sesión</a>
+                </li>
               </ul>
-              <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      HOLA {{ profile.get_nickname }} &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="/profile">Ver Perfil</a>
-                      <a class="dropdown-item" href="/grupo">Mi Grupo</a>
-                      <hr/>
-                      <a class="dropdown-item" href="/logout">Cerrar Sesión</a>
-                  </div>
-              </div>
           </div>
+          <div class="dropdown d-none d-lg-block">
+            <button class="btn btn-secondary dropdown-toggle "  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                HOLA {{ profile.get_nickname }} &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/profile">Ver Perfil</a>
+                <a class="dropdown-item" href="/grupo">Mi Grupo</a>
+                <hr/>
+                <a class="dropdown-item" href="/logout">Cerrar Sesión</a>
+            </div>
+        </div>
       </nav>
+      
   {% else %}
       <header class="header col-md-12" >
           <img class="logo col-md-4" src="{% static "imagenes/logo.jpeg" %}">
