@@ -70,7 +70,7 @@ def profile(request):
             birthdate=profile.birthdate,
             password='',
         ), instance=profile)
-    return render(request, 'profile.html', {'form': form})
+    return render(request, 'profile.html', {'form': form, 'nav_page': 'profile'})
 
 def register(request):
     if request.method == "POST":
@@ -273,9 +273,9 @@ def vaccine_calendar(request):
 
 @login_required
 def group_list(request):
-     query = request.GET.get('q', '')
-     qs = models.Profile.objects.filter(parent=request.user.profile)
-     return render(request, 'group_list.html', {'group': qs.order_by('last_name', 'first_name')})
+    query = request.GET.get('q', '')
+    qs = models.Profile.objects.filter(parent=request.user.profile)
+    return render(request, 'group_list.html', {'group': qs.order_by('last_name', 'first_name'), 'nav_page': 'group_list'})
 
 
 @login_required
